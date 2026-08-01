@@ -1,0 +1,44 @@
+{
+  "name": "soroban-error-registry",
+  "version": "0.1.0",
+  "description": "Static analysis for Soroban #[contracterror] enums: duplicate discriminants, cross-contract code collisions, and overlapping error-code ranges.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "bin": {
+    "soroban-error-registry": "./bin/soroban-error-registry.js"
+  },
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/",
+    "check:clean": "node bin/soroban-error-registry.js examples/clean",
+    "check:broken": "node bin/soroban-error-registry.js examples/broken"
+  },
+  "keywords": [
+    "soroban",
+    "stellar",
+    "smart-contracts",
+    "static-analysis",
+    "rust",
+    "error-codes",
+    "developer-tools"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eleven-smg/soroban-error-registry.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eleven-smg/soroban-error-registry/issues"
+  },
+  "homepage": "https://github.com/eleven-smg/soroban-error-registry#readme"
+}
