@@ -1,14 +1,14 @@
 # Contributing
 
 Thanks for taking a look. This project is small on purpose, and the bar for a
-change is simple: it should make the tool catch a real mistake, or stop it from
-reporting one that is not real.
+change is simple: it should make the linter catch a real mistake, or stop it
+from reporting one that is not real.
 
 ## Getting set up
 
 ```bash
-git clone https://github.com/eleven-smg/soroban-error-registry.git
-cd soroban-error-registry
+git clone https://github.com/eleven-smg/soroban-errcode-lint.git
+cd soroban-errcode-lint
 npm test
 ```
 
@@ -23,9 +23,9 @@ newer.
 - **A false positive is worse than a miss.** This tool is meant to sit in CI. If
   the parser is not sure it understood a variant, it should stay quiet rather
   than fail somebody's build.
-- **No runtime dependencies.** A lint tool that needs an install step will not
-  be added to a pipeline. If a change needs a dependency, open an issue first
-  and make the case.
+- **No runtime dependencies.** A linter that needs an install step will not be
+  added to a pipeline. If a change needs a dependency, open an issue first and
+  make the case.
 - **Keep the rule ids stable.** Projects silence rules by id in their config, so
   renaming one is a breaking change.
 
@@ -46,9 +46,9 @@ risky, or that a project might reasonably choose to do, is a `warning`.
 Commit messages follow Conventional Commits: `feat:`, `fix:`, `docs:`,
 `test:`, `refactor:`, `chore:`.
 
-A pull request should say what it changes, why, and how it was verified. Keep
-unrelated changes out; two small pull requests are easier to review than one
-large one.
+All changes land through a pull request, including the maintainer's own. A pull
+request should say what it changes, why, and how it was verified. Keep unrelated
+changes out; two small pull requests are easier to review than one large one.
 
 ## Reporting a parser bug
 

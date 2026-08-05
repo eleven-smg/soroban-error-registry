@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
   - name: Security report
-    url: https://github.com/eleven-smg/soroban-error-registry/security/advisories/new
+    url: https://github.com/eleven-smg/soroban-errcode-lint/security/advisories/new
     about: Report a parser hang, a path-handling problem, or a missed finding privately.

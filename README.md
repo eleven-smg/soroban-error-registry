@@ -1,13 +1,16 @@
-# soroban-error-registry
+# soroban-errcode-lint
 
-Static analysis for Soroban `#[contracterror]` enums.
+A linter for Soroban contract error codes.
 
-It reads your Rust sources, builds a single registry of every contract error
+It reads your Rust sources, builds a single view of every `#[contracterror]`
 code in the workspace, and fails the build when two errors fight over the same
 number.
 
 Zero runtime dependencies. No Rust toolchain required, so it runs in a lint job
 that finishes in seconds rather than in a `cargo build` that takes minutes.
+
+> Previously named `soroban-error-registry`. The Markdown registry is one of the
+> outputs, but the job is linting, so the name changed to match.
 
 ## Why
 
@@ -25,15 +28,15 @@ public API, and it makes three mistakes expensive:
    from its position. Insert a variant above it and every deployed client is
    silently reading a different error.
 
-This tool exists because all three showed up in real Stellar Wave contract
+This tool exists because all three showed up in real Stellar contract
 repositories within a single week.
 
 ## Install
 
 ```bash
-git clone https://github.com/eleven-smg/soroban-error-registry.git
-cd soroban-error-registry
-node bin/soroban-error-registry.js --help
+git clone https://github.com/eleven-smg/soroban-errcode-lint.git
+cd soroban-errcode-lint
+node bin/soroban-errcode-lint.js --help
 ```
 
 Node 20 or newer. There is nothing to install.
@@ -41,17 +44,17 @@ Node 20 or newer. There is nothing to install.
 ## Usage
 
 ```bash
-# Scan a contracts workspace
-node bin/soroban-error-registry.js ./contracts
+# Lint a contracts workspace
+node bin/soroban-errcode-lint.js ./contracts
 
-# Generate a committed registry file
-node bin/soroban-error-registry.js ./contracts --markdown --out docs/error-codes.md
+# Generate a committed error-code registry
+node bin/soroban-errcode-lint.js ./contracts --markdown --out docs/error-codes.md
 
 # Machine readable output
-node bin/soroban-error-registry.js ./contracts --json
+node bin/soroban-errcode-lint.js ./contracts --json
 
 # Fail on warnings too
-node bin/soroban-error-registry.js ./contracts --strict
+node bin/soroban-errcode-lint.js ./contracts --strict
 ```
 
 Exit codes: `0` clean, `1` findings failed the run, `2` the tool could not run.
@@ -59,8 +62,8 @@ Exit codes: `0` clean, `1` findings failed the run, `2` the tool could not run.
 ### In CI
 
 ```yaml
-- name: Check contract error codes
-  run: node bin/soroban-error-registry.js contracts --strict
+- name: Lint contract error codes
+  run: node bin/soroban-errcode-lint.js contracts --strict
 ```
 
 ## Rules
@@ -72,6 +75,8 @@ Exit codes: `0` clean, `1` findings failed the run, `2` the tool could not run.
 | `range-violation` | error | A variant falls outside the range declared for its enum. |
 | `range-overlap` | warning | Two enums occupy overlapping ranges but do not collide yet. |
 | `implicit-discriminant` | warning | A variant has no `= N`, so its code depends on declaration order. |
+
+Full reference with examples and fixes: [`docs/rules.md`](docs/rules.md).
 
 ## Configuration
 
@@ -112,7 +117,8 @@ The parser is lexical, not a full Rust front end. It recognises:
 It does not understand:
 
 - Discriminants that are expressions or constants (`= BASE + 1`). These are
-  skipped rather than guessed at.
+  skipped rather than guessed at. See issue #4.
+- The fully qualified `#[soroban_sdk::contracterror]` form. See issue #1.
 - Tuple or struct variants, which `#[contracterror]` does not support anyway.
 - Enums produced by macro expansion.
 
@@ -126,6 +132,8 @@ npm test          # node --test test/
 npm run check:clean
 npm run check:broken
 ```
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 

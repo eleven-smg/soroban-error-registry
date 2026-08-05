@@ -1,14 +1,14 @@
 {
-  "name": "soroban-error-registry",
+  "name": "soroban-errcode-lint",
   "version": "0.1.0",
-  "description": "Static analysis for Soroban #[contracterror] enums: duplicate discriminants, cross-contract code collisions, and overlapping error-code ranges.",
+  "description": "Lints Soroban #[contracterror] error codes: duplicate discriminants, cross-contract code collisions, and overlapping code ranges.",
   "type": "module",
   "license": "MIT",
   "engines": {
     "node": ">=20.0.0"
   },
   "bin": {
-    "soroban-error-registry": "./bin/soroban-error-registry.js"
+    "soroban-errcode-lint": "./bin/soroban-errcode-lint.js"
   },
   "exports": {
     ".": "./src/index.js"
@@ -21,24 +21,26 @@
   ],
   "scripts": {
     "test": "node --test test/",
-    "check:clean": "node bin/soroban-error-registry.js examples/clean",
-    "check:broken": "node bin/soroban-error-registry.js examples/broken"
+    "lint:examples": "node bin/soroban-errcode-lint.js examples/clean",
+    "check:clean": "node bin/soroban-errcode-lint.js examples/clean",
+    "check:broken": "node bin/soroban-errcode-lint.js examples/broken"
   },
   "keywords": [
     "soroban",
     "stellar",
     "smart-contracts",
     "static-analysis",
+    "linter",
     "rust",
     "error-codes",
     "developer-tools"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eleven-smg/soroban-error-registry.git"
+    "url": "git+https://github.com/eleven-smg/soroban-errcode-lint.git"
   },
   "bugs": {
-    "url": "https://github.com/eleven-smg/soroban-error-registry/issues"
+    "url": "https://github.com/eleven-smg/soroban-errcode-lint/issues"
   },
-  "homepage": "https://github.com/eleven-smg/soroban-error-registry#readme"
+  "homepage": "https://github.com/eleven-smg/soroban-errcode-lint#readme"
 }

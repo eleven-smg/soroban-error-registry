@@ -27,11 +27,11 @@ jobs:
         run: node --test test/
 
       - name: Clean example must pass
-        run: node bin/soroban-error-registry.js examples/clean
+        run: node bin/soroban-errcode-lint.js examples/clean
 
       - name: Broken example must fail
         run: |
-          if node bin/soroban-error-registry.js examples/broken; then
+          if node bin/soroban-errcode-lint.js examples/broken; then
             echo "Expected a non-zero exit code for examples/broken"
             exit 1
           fi
